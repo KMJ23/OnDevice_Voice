@@ -23,6 +23,8 @@ dependencies {
 
     implementation(libs.langchain4j)
     implementation(libs.langchain4j.document.parser.apache.poi)
+    implementation(libs.langgraph4j.core)
+    implementation(libs.langgraph4j.core.jdk8)
 
     implementation(libs.microsoft.onnxruntime.android)
     implementation(libs.kotlin.deeplearning.onnx)

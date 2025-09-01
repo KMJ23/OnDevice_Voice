@@ -56,7 +56,7 @@ class RagManager @Inject constructor(
         return result
     }
 
-    suspend fun updateExternalData(): Boolean {
+    suspend fun updateExternalData(filePaths: List<String>): Boolean {
         var result: Boolean
         measureTimeMillis {
              result = withContext(Dispatchers.Default) {

@@ -3,7 +3,7 @@ package com.example.ondevice
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rag.RagManager
+import com.example.rag.RagAgent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,11 +19,8 @@ internal const val TAG = "ondevice_app"
 
 @HiltViewModel
 class OnDeviceViewModel @Inject constructor(
-    private val ragManager: RagManager
+    private val ragAgent: RagAgent
 ): ViewModel() {
-
-    //private val _sideEffect: Channel<OnDeviceState> = Channel()
-    //val sideEffect = _sideEffect.receiveAsFlow()
 
     private val events = Channel<OnDeviceEvent>()
     val state = events.receiveAsFlow()
@@ -43,18 +40,16 @@ class OnDeviceViewModel @Inject constructor(
             }
 
             is OnDeviceEvent.Update -> {
-                val result = ragManager.updateExternalData()
-
                 current.copy(
                     isLoading = false,
-                    isUpdate = result,
-                    isSearch = false,
-                    question = ""
+                    isUpdate = true,
+                    filePaths = event.filePaths
                 )
             }
 
             is OnDeviceEvent.Search -> {
-                val answer = ragManager.search(event.message)
+                val resultMap = ragAgent.runRAGPipeline(current.filePaths, event.message)
+                val answer = resultMap["response"] as? String ?: "No response"
 
                 current.copy(
                     isLoading = false,
@@ -74,12 +69,12 @@ class OnDeviceViewModel @Inject constructor(
         }
     }
 
-    fun update() {
+    fun update(filePaths: List<String>) {
         if (state.value.isLoading) {
             Log.i(TAG, "state is loading")
         } else {
             sendEvent(OnDeviceEvent.Loading)
-            sendEvent(OnDeviceEvent.Update)
+            sendEvent(OnDeviceEvent.Update(filePaths))
         }
     }
 
@@ -96,13 +91,9 @@ class OnDeviceViewModel @Inject constructor(
 
 sealed class OnDeviceEvent {
     data object Loading: OnDeviceEvent()
-    data object Update: OnDeviceEvent()
+    data class Update(val filePaths: List<String>): OnDeviceEvent()
     data class Search(val message: String): OnDeviceEvent()
 }
-
-//sealed class OnDeviceSideEffect {
-//    data object ShowToast: OnDeviceSideEffect()
-//}
 
 @Immutable
 data class OnDeviceState(
@@ -110,5 +101,6 @@ data class OnDeviceState(
     val isUpdate: Boolean = false,
     val isSearch: Boolean = false,
     val question: String = "",
-    val answer: String = ""
+    val answer: String = "",
+    val filePaths: List<String> = emptyList()
 )

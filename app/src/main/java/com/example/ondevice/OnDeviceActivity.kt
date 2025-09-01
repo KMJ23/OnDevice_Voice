@@ -100,6 +100,8 @@ fun TestScreen(
         hideProgressDialog()
     }
 
+    val filePathsToUpdate = listOf("data/local/tmp/file/tvChannels.xlsx")
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -116,7 +118,7 @@ fun TestScreen(
                             .focusProperties { down = textFieldFocusRequester }
                             .focusRequester(defaultFocusRequester)
                             .focusable(),
-                        onClick = onDeviceViewModel::update
+                        onClick = { onDeviceViewModel.update(filePathsToUpdate) }
                     ) {
                         Icon(
                             imageVector = Icons.Default.AddCircle,

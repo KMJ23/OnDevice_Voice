@@ -30,6 +30,8 @@ coil = "2.4.0"
 
 kotlinxCoroutines = "1.7.3"
 langchain4j = "0.36.2"
+langgraph4j = "1.5.12"
+langgraph4jjdk = "1.1.5"
 objectboxGradlePlugin = "4.0.3"
 
 onnxruntimeAndroidVersion = "1.20.0"
@@ -93,6 +95,8 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 langchain4j = { group = "dev.langchain4j", name = "langchain4j", version.ref = "langchain4j" }
 langchain4j-hugging-face = { module = "dev.langchain4j:langchain4j-hugging-face", version.ref = "langchain4j" }
 langchain4j-document-parser-apache-poi = { group = "dev.langchain4j", name = "langchain4j-document-parser-apache-poi", version.ref = "langchain4j" }
+langgraph4j-core = { group = "org.bsc.langgraph4j", name = "langgraph4j-core", version.ref = "langgraph4j" }
+langgraph4j-core-jdk8 = { group = "org.bsc.langgraph4j", name = "langgraph4j-core-jdk8", version.ref = "langgraph4jjdk" }
 
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
