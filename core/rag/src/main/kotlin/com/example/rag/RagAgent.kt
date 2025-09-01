@@ -59,8 +59,6 @@ class RagAgent @Inject constructor(
     private val customEmbeddedModel: CustomEmbeddedModel,
     private val customVectorStore: CustomVectorStore,
     private val customChatModel: CustomChatModel,
-    private val scope: CoroutineScope,
-    private val context: Context
 ) {
     //private val stateSerializer = ObjectStreamStateSerializer { RagState(HashMap()) }
 
