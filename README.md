@@ -1,16 +1,9 @@
 # AI Voice Control TV
 
-| AI        | 모델 명                  |
-|-----------|-----------------------|
-| LLM       | SmolLM2-135M          |
-| EMBEDDING | Ko-Sroberta-Multitask |
-
-
 ### 모듈 구조
 - core / database
 - core / rag 
 - core / ui 
-- core / designsystem
 - library / llama.cpp / llama
 
 ----------------------------------------
