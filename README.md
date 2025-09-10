@@ -1,4 +1,4 @@
-# AI Voice Control TV
+# RAG Design
 
 ### 모듈 구조
 - core / database
